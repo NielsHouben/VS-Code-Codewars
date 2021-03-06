@@ -7,8 +7,6 @@ const io = require('socket.io')(http, {
     }
 })
 
-
-
 io.on("connection", socket => {
     socket.on("inData", data => {
         // console.log(data.result.output[0].items)

@@ -12,12 +12,15 @@ sio.connect('http://localhost:5000')
 
 with open('main.py', "r") as file:
     code = file.read()
-
+sleep(0.3)
 with open('body.json', "r+") as file: 
     data = json.load(file)
     data['code'] = code
+    sleep(0.2)
     file.seek(0)
+    sleep(0.3)
     json.dump(data, file, indent=4)
+    sleep(0.3)
 
     
     
