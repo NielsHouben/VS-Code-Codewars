@@ -17,6 +17,7 @@
                 slot="content"
                 :color="test.passed ? 'green' : 'red'"
                 :initialShowContent="!test.passed"
+                :logs="3"
               >
                 <span slot="title">{{ test.evaluation }}</span>
                 <pre class="content" slot="content">{{ test.log }}</pre>

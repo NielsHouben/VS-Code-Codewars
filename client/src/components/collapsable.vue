@@ -1,32 +1,41 @@
 <template>
-  <div class="container" :class="`border${this.color} `">
-    <div @click="showContent = !showContent" :class="this.color">
-      <div class="triangle" :class="!showContent ? 'arrowDown' : ''"></div>
-      <h3 class="title">
-        <slot name="title"></slot>
-      </h3>
-    </div>
-    <transition name="slide-fade">
-      <div v-show="showContent">
-        <!-- :class="{ active: showContent }" -->
-        <!-- @mouseover="prevent = true" @mouseleave="prevent = false" -->
-        <!-- <p>hej jag försvinner</p> -->
-        <div>
-          <slot name="content"></slot>
-        </div>
+  <div :style="{ '--lines': this.lines }">
+    <!-- <style>
+      :root {
+        --lines: {{ lines }};
+      }
+    </style> -->
+    <div class="container" :class="`border${this.color} `">
+      <div @click="showContent = !showContent" :class="this.color">
+        <div class="triangle" :class="!showContent ? 'arrowDown' : ''"></div>
+        <h3 class="title">
+          <slot name="title"></slot>
+        </h3>
       </div>
-    </transition>
+      <transition name="slide-fade">
+        <div v-show="showContent">
+          <!-- :class="{ active: showContent }" -->
+          <!-- @mouseover="prevent = true" @mouseleave="prevent = false" -->
+          <!-- <p>hej jag försvinner</p> -->
+          <div>
+            <slot name="content"></slot>
+          </div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "result",
-  props: ["color", "initialShowContent"],
+  props: ["logs", "color", "initialShowContent"],
   data() {
     return {
       showContent: this.initialShowContent,
       prevent: false,
+      // lines: "-54px",
+      lines: `-${18 * this.logs}px`,
     };
   },
   created() {
@@ -50,19 +59,33 @@ export default {
 </script>
 
 <style>
+/* MAKE ONE TRANSITION FOR MOVE AND ONE FOR SLIDDE, ONLY APPLY SLIDE (IN TEMPLATE) IF LOGS IS PRESENT  */
+
+/* :root {
+  --lines: -18px;
+} */
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-fade-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.3s;
+  /* opacity: 0; */
   /* transition: opacity 0.5s; */
 }
 .slide-fade-leave-active {
-  transition: all 0.4s ease; /*cubic-bezier(1, 0.5, 0.8, 0.7)*/
+  /* opacity: 0; */
+  transition: all 0.3s; /*cubic-bezier(1, 0.5, 0.8, 0.7)*/
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(60%);
+  /* --lines: -18px; */
   opacity: 0;
+  /* transform: translateY(-100%); */
+  /* margin-top: calc(-16px + var(--lines)); 16, 18 */
+  /* margin-top: -16px; */
+  margin-top: calc(-16px + var(--lines));
+  /* margin-top: -70px; */
+  /* transform: translateY(-60%); */
+  /* opacity: 0; */
 }
 
 .fade-enter-active,

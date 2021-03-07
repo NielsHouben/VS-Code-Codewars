@@ -6,8 +6,8 @@ def format_duration(seconds):
     # if seconds < 400000: print(seconds)
     
     print(seconds)
-    print("hej")
-    print("noooooooooo")
+    # print("hej")
+    # print("noooooooooo")
     print("DONKY KONG")
     print(randrange(1000))
     return "now"
