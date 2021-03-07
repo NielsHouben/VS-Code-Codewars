@@ -1,14 +1,21 @@
 <template>
-  <div class="container">
+  <div class="container" :class="`border${this.color} `">
     <div @click="showContent = !showContent" :class="this.color">
       <div class="triangle" :class="!showContent ? 'arrowDown' : ''"></div>
       <h3 class="title">
         <slot name="title"></slot>
       </h3>
     </div>
-    <div v-show="showContent">
-      <slot name="content"></slot>
-    </div>
+    <transition name="slide-fade">
+      <div v-show="showContent">
+        <!-- :class="{ active: showContent }" -->
+        <!-- @mouseover="prevent = true" @mouseleave="prevent = false" -->
+        <!-- <p>hej jag försvinner</p> -->
+        <div>
+          <slot name="content"></slot>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -19,6 +26,7 @@ export default {
   data() {
     return {
       showContent: this.initialShowContent,
+      prevent: false,
     };
   },
   created() {
@@ -26,19 +34,83 @@ export default {
     // if (this.initialShowContent) {
     //   console.log(this.initialShowContent);
     // }
+    console.log(this.$children);
+    // console.log(this.$slots.title);
+    // console.log(this.$slots.content);
   },
-  watch: {},
+  watch: {
+    prevent: function (value) {
+      console.log(this.$slots.title);
+      console.log(value);
+    },
+  },
   mounted() {},
   methods: {},
 };
 </script>
 
 <style>
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+  /* transition: opacity 0.5s; */
+}
+.slide-fade-leave-active {
+  transition: all 0.4s ease; /*cubic-bezier(1, 0.5, 0.8, 0.7)*/
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(60%);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transition: all 0.1s;
+}
+
+.list-enter,
+.list-leave-to {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s;
+}
+/* .content {
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.3s, height 0.3s 0.1s;
+}
+.active .content {
+  opacity: 1;
+  height: auto;
+  transition: opacity 0.3s 0.1s, height 0.3s;
+} */
+
 .container {
   border: 2px solid;
+  border-radius: 20px;
+  /* border-color: red; */
   margin: 10px;
   padding: 10px;
   text-align: left;
+}
+.borderred {
+  border-color: rgb(230, 0, 0);
+}
+.bordergreen {
+  border-color: rgb(0, 200, 0);
 }
 .title {
   -moz-user-select: -moz-none;

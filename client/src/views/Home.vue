@@ -19,59 +19,11 @@
                 :initialShowContent="!test.passed"
               >
                 <span slot="title">{{ test.evaluation }}</span>
-                <span slot="content">{{ test.log }}</span>
+                <pre class="content" slot="content">{{ test.log }}</pre>
               </Collapsable>
-
-              <!-- v-for="idx in testType.items.length" :key="idx.id" -->
-              <!-- {{ idx }} {{ testType.items[2] }} -->
-              <!-- <p>
-                {{ idx - 1 }}
-                {{ testType.items[idx - 1].v }}
-              </p>
-              <p>
-                {{ idx }}
-                {{ testType.items[idx].v }}
-              </p> -->
-              <!-- <div v-if="testType.items[2].t === 'log'">
-                <div v-if="idx % 2 == 0">
-                  <p>
-                    {{ idx - 1 }}
-                    {{ testType.items[idx - 1].v }}
-                  </p>
-                  <p>
-                    {{ idx }}
-                    {{ testType.items[idx].v }}
-                  </p>
-                  <Collapsable
-                    slot="content"
-                    :color="testType.items[idx - 1].v === 'Test Passed' ? 'green' : 'red'"
-                    initialShowContent="true"
-                  >
-                    <span slot="title">{{ testType.items[idx - 1].v }}</span>
-                    <span slot="content">{{ testType.items[idx].v }}</span>
-                  </Collapsable>
-                  <br />
-                </div>
-              </div>
-              <div v-else>NO LOGS</div> -->
             </div>
-            <!-- <Collapsable slot="content" color="red" initialShowContent="true">
-              <span slot="title">Test Failed</span>
-              <span slot="content">hulken dålig</span>
-            </Collapsable> -->
           </Collapsable>
         </div>
-        <!-- <Collapsable initialShowContent="true" :color="'black'">
-          <span slot="title">Basic Tests</span>
-          <Collapsable slot="content" color="red" initialShowContent="true">
-            <span slot="title">Test Failed</span>
-            <span slot="content">hulken dålig</span>
-          </Collapsable>
-          <Collapsable slot="content" color="green" initialShowContent="true">
-            <span slot="title">Test Successfull</span>
-            <span slot="content">hulken bra</span>
-          </Collapsable>
-        </Collapsable> -->
       </div>
     </div>
   </div>
@@ -138,4 +90,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.content {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #000811;
+}
+</style>

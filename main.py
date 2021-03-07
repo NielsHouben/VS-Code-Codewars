@@ -10,7 +10,7 @@ def format_duration(seconds):
     print("noooooooooo")
     print("DONKY KONG")
     print(randrange(1000))
-    return
+    return "now"
     
     # res = []
     
