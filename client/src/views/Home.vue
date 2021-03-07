@@ -100,16 +100,18 @@ export default {
     };
   },
   created() {
-    this.socket = io("http://localhost:5000", { transport: ["websocket"] });
+    this.socket = io("http://localhost:3000", { transport: ["websocket"] });
   },
   mounted() {
     this.socket.on("outData", (data) => {
+      console.log(data);
       this.failed = data.result.assertions.failed;
       this.passed = data.result.assertions.passed;
+      this.results = [];
       for (let idx = 0; idx < data.result.output.length; idx++) {
-        console.log(
-          "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-        );
+        // console.log(
+        //   "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+        // );
         let testType = {};
         let element = data.result.output[idx];
         testType.title = element.v;
@@ -127,6 +129,9 @@ export default {
         }
         this.results.push(testType);
       }
+    });
+    this.socket.on("test", (data) => {
+      console.log(data);
     });
   },
   methods: {},
